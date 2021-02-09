@@ -125,6 +125,9 @@ ramenCreateForm.addEventListener('submit', (e) => {
 
 
     const newRestaurant = {name, restaurant, image, rating, comment} 
+
+    renderMenuImage(newRestaurant)
+    
     fetch(url, {
         method: 'POST',
         headers: {
@@ -143,10 +146,10 @@ const deleteButton = document.querySelector('button')
 deleteButton.addEventListener('click', (e) => {
     const ramen = e.target.previousElementSibling
     const id = ramen.dataset.id
-    // const menuImage = document.querySelector('[data-id=`${id}`]')
+    const menuImage = document.querySelector(`[data-id='${id}']`)
     Array.from(ramenDetails.children).forEach(detail => detail.remove())
     ramenRatingForm.remove()
-    // menuImage.remove()
+    menuImage.remove()
 
     fetch(`${url}/${id}`, {
         method: 'DELETE',
