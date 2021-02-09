@@ -68,12 +68,17 @@ function renderRamen(ramen) {
 
 
 
-   
+   ratingFormUpdate(ramen)
+
+
+
+}
+
+function ratingFormUpdate(ramen) {
+    console.log('test')
     ramenRatingForm.dataset.id = ramen.id
     ramenRatingForm.rating.value = ramen.rating
     ramenRatingForm.comment.value = ramen.comment
-
-
 }
 
 
@@ -84,18 +89,21 @@ ramenRatingForm.addEventListener('submit', updateRamenInfo)
 function updateRamenInfo(e){
     e.preventDefault()
     // console.log(e)
-    if (e.target[2].value == 'Update') {
-        const rating = e.target.rating.value
-        const comment = e.target.comment.value
-        const id = e.target.dataset.id 
-        fetch(`${url}/${id}`, {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({rating, comment})
-        })
-    }
+    const rating = e.target.rating.value
+    const comment = e.target.comment.value
+    const id = e.target.dataset.id 
+    const updatedRamen = {rating, id, comment}
+    console.log(updatedRamen)
+    ratingFormUpdate(updatedRamen)
+    fetch(`${url}/${id}`, {
+        method: 'PATCH',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({rating, comment})
+    })
+        // .then(response => response.json())
+        // .then(ratingFormUpdate)
 
     // if (e.target[3].className === 'delete'){
     //     const id = e.target.dataset.id 
