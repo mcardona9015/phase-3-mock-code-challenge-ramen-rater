@@ -83,7 +83,7 @@ ramenRatingForm.addEventListener('submit', updateRamenInfo)
 
 function updateRamenInfo(e){
     e.preventDefault()
-    console.log(e)
+    // console.log(e)
     if (e.target[2].value == 'Update') {
         const rating = e.target.rating.value
         const comment = e.target.comment.value
@@ -97,16 +97,16 @@ function updateRamenInfo(e){
         })
     }
 
-    if (e.target[3].className === 'delete'){
-        const id = e.target.dataset.id 
-        fetch(`${url}/${id}`, {
-            method: 'DELETE',
-            // headers: {
-            //     "Content-Type": "application/json"
-            // },
-            // body: JSON.stringify()
-        })
-    }
+    // if (e.target[3].className === 'delete'){
+    //     const id = e.target.dataset.id 
+    //     fetch(`${url}/${id}`, {
+    //         method: 'DELETE',
+    //         // headers: {
+    //         //     "Content-Type": "application/json"
+    //         // },
+    //         // body: JSON.stringify()
+    //     })
+    // }
     
 }
 
@@ -135,8 +135,19 @@ ramenCreateForm.addEventListener('submit', (e) => {
 })
 
 //####### Delete Ramen #######//
-const deleteButton = document.createElement('button')
-deleteButton.innerText = 'Delete'
-deleteButton.className = 'delete'
-ramenRatingForm.append(deleteButton)
+const deleteButton = document.querySelector('button')
+// deleteButton.innerText = 'Delete'
+// deleteButton.className = 'delete'
+// ramenDetails.append(deleteButton)
+
+deleteButton.addEventListener('click', (e) => {
+    const id = e.target.previousElementSibling.dataset.id
+    fetch(`${url}/${id}`, {
+        method: 'DELETE',
+        // headers: {
+        //     "Content-Type": "application/json"
+        // },
+        // body: JSON.stringify()
+    })
+})
 

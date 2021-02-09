@@ -71,7 +71,7 @@ form {
   align-items: flex-start;
 }
 
-.delete, input,
+input,
 textarea {
   font-size: 1rem;
   border: 1px solid black;
@@ -79,6 +79,15 @@ textarea {
   padding: 0.5rem;
   margin: 0.25rem 0;
   width: 100%;
+}
+
+.delete {
+  font-size: 1rem;
+  border: 1px solid black;
+  background-color: white;
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  width: 300px;
 }
 
 input[type="submit"] {
