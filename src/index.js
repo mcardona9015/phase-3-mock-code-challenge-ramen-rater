@@ -47,9 +47,9 @@ function showRamenInfo(e){
 }
 
 function renderRamen(ramen) {
-    const ramenContainer = document.createElement('div')
-    ramenContainer.dataset.id = ramen.id
-    ramenContainer.className = 'ramen-container'
+    // const ramenContainer = document.createElement('div')
+    // ramenContainer.dataset.id = ramen.id
+    // ramenContainer.className = 'ramen-container'
 
     const image = document.createElement('img')
     image.src = ramen.image
@@ -65,13 +65,13 @@ function renderRamen(ramen) {
     restaurantName.innerText = ramen.restaurant
 
     ramenDetails.append(image, name, restaurantName) 
-    ramenDetails.append(ramenContainer)
+
 
 
    
     ramenRatingForm.dataset.id = ramen.id
     ramenRatingForm.rating.value = ramen.rating
-    ramenRatingForm.comment.innerText = ramen.comment
+    ramenRatingForm.comment.value = ramen.comment
 
 
 }
@@ -141,11 +141,17 @@ const deleteButton = document.querySelector('button')
 // ramenDetails.append(deleteButton)
 
 deleteButton.addEventListener('click', (e) => {
-    const id = e.target.previousElementSibling.dataset.id
+    const ramen = e.target.previousElementSibling
+    const id = ramen.dataset.id
+    // const menuImage = document.querySelector('[data-id=`${id}`]')
+    Array.from(ramenDetails.children).forEach(detail => detail.remove())
+    ramenRatingForm.remove()
+    // menuImage.remove()
+
     fetch(`${url}/${id}`, {
         method: 'DELETE',
         // headers: {
-        //     "Content-Type": "application/json"
+        //     "Content-Type": "application /json"
         // },
         // body: JSON.stringify()
     })
