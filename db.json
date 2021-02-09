@@ -5,7 +5,7 @@
       "name": "Nirvana Shiromaru",
       "restaurant": "Ippudo",
       "image": "./assets/ramen/nirvana.jpg",
-      "rating": "7",
+      "rating": "8",
       "comment": "Do not buy the hype."
     },
     {
@@ -28,8 +28,8 @@
       "name": "test",
       "restaurant": "test",
       "image": "https://cars.usnews.com/static/images/Auto/izmo/i159613994/2020_toyota_c_hr_angularfront.jpg",
-      "rating": "cd",
-      "comment": "sfh sg sb fb gf",
+      "rating": "testdfsdfdsf",
+      "comment": "w",
       "id": 6
     }
   ]

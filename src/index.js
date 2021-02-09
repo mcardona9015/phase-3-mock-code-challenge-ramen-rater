@@ -92,9 +92,6 @@ function updateRamenInfo(e){
     const rating = e.target.rating.value
     const comment = e.target.comment.value
     const id = e.target.dataset.id 
-    const updatedRamen = {rating, id, comment}
-    console.log(updatedRamen)
-    ratingFormUpdate(updatedRamen)
     fetch(`${url}/${id}`, {
         method: 'PATCH',
         headers: {
@@ -102,8 +99,8 @@ function updateRamenInfo(e){
         },
         body: JSON.stringify({rating, comment})
     })
-        // .then(response => response.json())
-        // .then(ratingFormUpdate)
+    .then(fetchRamen)
+    // .then(response => response.json())
 
     // if (e.target[3].className === 'delete'){
     //     const id = e.target.dataset.id 
