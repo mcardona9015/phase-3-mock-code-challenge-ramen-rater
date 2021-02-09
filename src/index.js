@@ -2,13 +2,13 @@
 const url = 'http://localhost:3000/ramens'
 let ramenArray
 
-fetchRamen()
+fetchRamen().then(renderMenuBar)
+fetchRamen().then(ramenArray => renderRamen(ramenArray[0]))
 
 function fetchRamen() {
-     fetch(url)
+    return fetch(url)
     .then(res => res.json())
     .then(data => ramenArray = data)
-    .then(ramenArray => renderMenuBar(ramenArray))
     // .then(ramenArray => renderAllRamen(ramenArray))
 }
 
@@ -67,28 +67,76 @@ function renderRamen(ramen) {
     ramenDetails.append(image, name, restaurantName) 
     ramenDetails.append(ramenContainer)
 
-    //####### Ramen Rating Update ################//
+
+   
     ramenRatingForm.dataset.id = ramen.id
     ramenRatingForm.rating.value = ramen.rating
     ramenRatingForm.comment.innerText = ramen.comment
 
+
 }
 
-// Create New Ramen
 
 ramenRatingForm.addEventListener('submit', updateRamenInfo)
 
+//####### Ramen Rating Update ################//
+
 function updateRamenInfo(e){
     e.preventDefault()
-    console.log('e: ', e);
+    console.log(e)
+    if (e.target[2].value == 'Update') {
+        const rating = e.target.rating.value
+        const comment = e.target.comment.value
+        const id = e.target.dataset.id 
+        fetch(`${url}/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({rating, comment})
+        })
+    }
+
+    if (e.target[3].className === 'delete'){
+        const id = e.target.dataset.id 
+        fetch(`${url}/${id}`, {
+            method: 'DELETE',
+            // headers: {
+            //     "Content-Type": "application/json"
+            // },
+            // body: JSON.stringify()
+        })
+    }
+    
+}
+
+//########## Create New Ramen #########//
+
+const ramenCreateForm = document.querySelector('#new-ramen')
+
+ramenCreateForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const name = e.target.name.value
+    const restaurant = e.target.restaurant.value
     const rating = e.target.rating.value
+    const image = e.target.image.value
     const comment = e.target.comment.value
-    const id = e.target.dataset.id 
-    fetch(`${url}/${id}`, {
-        method: 'PATCH',
+    console.log('comment: ', comment);
+
+
+    const newRestaurant = {name, restaurant, image, rating, comment} 
+    fetch(url, {
+        method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({rating, comment})
+        body: JSON.stringify(newRestaurant)
     })
-}
+})
+
+//####### Delete Ramen #######//
+const deleteButton = document.createElement('button')
+deleteButton.innerText = 'Delete'
+deleteButton.className = 'delete'
+ramenRatingForm.append(deleteButton)
+
